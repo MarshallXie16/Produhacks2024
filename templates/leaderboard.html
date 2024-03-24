@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+{% block body %}
+
+<div class="w-1/3 bg-white rounded-lg shadow-lg p-8" style="width: 50vw;">
+    <h1 class="text-2xl font-bold mb-4">Leaderboard</h1>
+<ul class="divide-y divide-gray-200 dark:divide-gray-700" style="width: 45vw;">
+    {% for user in users %}
+    <li class="py-3 sm:py-4 {% if user.username == username %} border-gray-100 {% endif %}">
+         <div class="flex items-center space-x-4 rtl:space-x-reverse">
+             <div class="flex-shrink-0">
+                 <img class="w-10 h-10 rounded-full" src="static/images/user_profiles/{{ user.id }}.jpg" alt="Neil image">
+             </div>
+             <div class="flex-1 min-w-0">
+                 <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                     {{ user.username }}
+                 </p>
+                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                     {{ user.points }} star tokens
+                 </p>
+             </div>
+             <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                 {{ user.challenge_completed }} Challenges Won
+             </div>
+         </div>
+     </li>
+     {% endfor %}
+ </ul>
+</div>
+{% endblock %}
