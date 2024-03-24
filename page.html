@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Versus Challenge Webpage</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+      <!-- Left Card Component -->
+      <div class="w-full md:w-1/3 px-4 mb-8">
+        <div class="relative max-w-md mx-auto overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
+          <div class="group">
+            <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="w-full object-cover group-hover:scale-105 transition-transform duration-300" alt="" />
+            <div class="absolute inset-0 z-10 bg-gradient-to-t from-black to-transparent"></div>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 z-20 p-4 backdrop-blur-sm">
+            <p class="mb-1 text-sm text-white text-opacity-80">Participant One</p>
+            <h3 class="text-xl font-medium text-white">Contender's Name</h3>
+            <p class="mt-1 text-white text-opacity-80">Brief description or stats</p>
+          </div>
+        </div>
+        <div class="mx-auto max-w-xs mt-4">
+            <label for="file-upload1" class="mb-1 block text-sm font-medium text-gray-700">Upload file</label>
+            <label class="flex w-full cursor-pointer appearance-none items-center justify-center rounded-md border-2 border-dashed border-gray-200 p-6 transition-all hover:border-primary-300">
+              <div class="space-y-1 text-center">
+                <div class="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                  </svg>
+                </div>
+                <div id="filename1" class="text-gray-600">Click to upload or drag and drop</div>
+                <p class="text-sm text-gray-500">Only .png, .jpg, .mp4 files accepted</p>
+              </div>
+              <input id="file-upload1" type="file" accept=".jpg, .png, .mp4" class="sr-only" onchange="updateFilename(1, this.files)" />
+            </label>
+          </div>
+      </div>
+      
+      <!-- Challenge Details -->
+      <div class="w-full md:w-1/3 px-4 mb-8 flex flex-col justify-center items-center">
+        <div class="bg-white p-4 rounded-lg shadow text-center">
+          <h2 class="font-bold text-lg mb-2">Challenge Details</h2>
+          <p class="text-gray-700">Detailing the epic showdown between our two competitors. May the best one win!</p>
+        </div>
+      </div>
+
+      <!-- Right Card Component -->
+      <div class="w-full md:w-1/3 px-4 mb-8">
+        <div class="relative max-w-md mx-auto overflow-hidden rounded-lg bg-white shadow-lg hover:shadow-2xl transition-shadow duration-300">
+          <div class="group">
+            <img src="https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80" class="w-full object-cover group-hover:scale-105 transition-transform duration-300" alt="" />
+            <div class="absolute inset-0 z-10 bg-gradient-to-t from-black to-transparent"></div>
+          </div>
+          <div class="absolute inset-x-0 bottom-0 z-20 p-4 backdrop-blur-sm">
+            <p class="mb-1 text-sm text-white text-opacity-80">Participant Two</p>
+            <h3 class="text-xl font-medium text-white">Contender's Name</h3>
+            <p class="mt-1 text-white text-opacity-80">Brief description or stats</p>
+          </div>
+        </div>
+        <div class="mx-auto max-w-xs mt-4">
+            <label for="file-upload2" class="mb-1 block text-sm font-medium text-gray-700">Upload file</label>
+            <label class="flex w-full cursor-pointer appearance-none items-center justify-center rounded-md border-2 border-dashed border-gray-200 p-6 transition-all hover:border-primary-300">
+              <div class="space-y-1 text-center">
+                <div class="mx-auto inline-flex h-10 w-10 items-center justify-center rounded-full bg-gray-100">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6 text-gray-500">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z" />
+                  </svg>
+                </div>
+                <div id = "filename2" class="text-gray-600">Click to upload or drag and drop</div>
+                <p class="text-sm text-gray-500">Only .png, .jpg, .mp4 files accepted</p>
+              </div>
+              <input id="file-upload2" type="file" accept=".jpg, .png, .mp4" class="sr-only" onchange = "updateFilename(2, this.files)"/>
+            </label>
+          </div>
+    </div>
+    </main>
+
+    <script>
+        // JavaScript function to update the label with the file name
+        function updateFilename(cardNum, files) {
+          var label = document.getElementById('filename' + cardNum);
+          if (files.length > 0) {
+            label.textContent = files[0].name; // Set the text content to the file name
+          } else {
+            label.textContent = 'Click to upload or drag and drop'; // Reset to default text if no file is selected
+          }
+        }
+      </script>
+    </body>
+    </html>
