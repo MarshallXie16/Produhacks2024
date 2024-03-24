@@ -1,0 +1,62 @@
+{% extends "index.html" %}
+
+{% block body %}
+<section class="bg-white dark:bg-gray-900">
+    <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+        <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Create a Challenge!</h2>
+        <form action="/create_challenge" method="POST">
+            <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+                <div class="sm:col-span-2">
+                    <label for="challenge-title"
+                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Challenge Title</label>
+                    <input type="text" name="challenge-title" id="challenge-title"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                        value="" placeholder="What's the title of your challenge?" required="">
+                </div>
+                <div>
+                    <label for="activity" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Activity
+                        Type</label>
+                    <select id="activity" name="activity"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <option value="cardio" selected="">Cardio</option>
+                        <option value="strength">Strength Training</option>
+                        <option value="flexibility">Flexibility Exercise</option>
+                        <option value="aquatic">Aquatic Sports</option>
+                        <option value="functional fitness">Functional Fitness</option>
+                    </select>
+                </div>
+                <div class="w-full">
+                    <label class="block text-gray-700 text-sm font-bold mb-2" for="challenge-date">
+                        Challenge Date</label>
+                    <input id="challenge-date" name="challenge-date" type="date"
+                        class="w-full border bg-gray-50 border-gray-300 rounded py-2 px-3">
+                </div>
+            </div>
+            <div class="mb-5">
+                <label for="disabled-range" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Wager Points</label>
+                <input id="disabled-range" type="range" value="50" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700">
+            </div>
+            <div class="mb-4">
+                <input id="wager-points" name="points-wagered" type="number" class="w-full border border-gray-300 rounded py-2 px-3" min="0" max="{{ user.points }}" value="{{ user.points / 2 }}">
+            </div>
+            <div class="flex items-center space-x-4">
+                <button type="submit"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                    Create Challenge
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+<script>
+    const rangeInput = document.getElementById('disabled-range');
+    const wagerPointsInput = document.getElementById('wager-points');
+    const maxPoints = parseInt("{{ user.points }}");
+
+    rangeInput.addEventListener('input', () => {
+        const inputValue = parseInt(rangeInput.value);
+        const calculatedPoints = Math.round((inputValue / 100) * maxPoints);
+        wagerPointsInput.value = calculatedPoints;
+    });
+</script>
+{% endblock %}
