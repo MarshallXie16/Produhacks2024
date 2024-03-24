@@ -1,0 +1,121 @@
+{% extends "index.html" %}
+
+{% block body %}
+<div
+    class="bg-gray-100 font-sans leading-normal tracking-normal flex items-center justify-center min-h-full rounded-md">
+    <main class="container p-8">
+        <div class="flex flex-wrap justify-center align-center items-start md:items-stretch">
+
+            <!-- Left Card Component -->
+            <div class="w-full md:w-1/3 px-4 mb-8">
+                <div class="reward mx-auto rounded-lg bg-white shadow p-4 mt-2"
+                    style="width: 100%; margin-left: 0; margin-right: 0; display: flex; flex-direction: row; justify-content: space-between; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <div class="relative mb-6">
+                            <img alt="User's profile picture"
+                                class="w-24 h-24 rounded-full mx-auto border-4 border-red-500" height="100"
+                                src="/static/images/user_profiles/{{ current_user.id }}.jpg" width="100" />
+                        </div>
+                        <div class="mb-4" style="margin-top:-10px;">
+                            <h2 class="text-lg font-bold text-gray-800">
+                                {{ current_user.username }}
+                            </h2>
+                            <p class="text-red-600 text-lg font-bold" style="margin-bottom: 10px;">
+                                Balance: {{ current_user.points }} tokens
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                {% if current_user_proof %}
+                <h2 class="font-bold text-lg mb-2">Your Proof</h2>
+                <img src="{{ current_user_proof }}" alt="Your Proof">
+                {% else %}
+                <form class="upload_form" action="/upload" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="challenge_id" value="{{ challenge.id }}">
+                    <input type="hidden" name="user_id" value="{{ current_user.id }}">
+                    <label for="file" class="upload_label">Choose a file</label>
+                    <input type="file" id="file_upload" name="file" accept=".png, .jpg, .mp4">
+                    <button type="submit"
+                        class="mt-4 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:shadow-outline">Submit
+                        Proof</button>
+                </form>
+                {% endif %}
+
+            </div>
+
+            <!-- Challenge Details -->
+            <div class="w-full md:w-1/3 px-4 mb-8 flex flex-col justify-center items-center">
+                <div class="bg-white p-4 rounded-lg shadow text-center">
+                    <h2 class="font-bold text-lg mb-2">Challenge: {{ challenge.name }}</h2>
+                    <p class="text-gray-700" style="font-size: 14px;">Duration: {{ challenge.duration }}</p>
+                    <p class="text-gray-700" style="font-size: 14px; margin-bottom: 10px;">Points: {{ challenge.points
+                        }}</p>
+                    <p class="text-gray-700">Ready for a friendly face-off? It’s you versus them in a test of will,
+                        determination, and progress.</p>
+                    <p class="text-gray-700">May the best participant reach their goal!</p>
+
+                </div>
+            </div>
+
+            <!-- Right Card Component -->
+            <div class="w-full md:w-1/3 px-4 mb-8">
+                <div class="reward mx-auto rounded-lg bg-white shadow p-4 mt-2"
+                    style="width: 100%; margin-left: 0; margin-right: 0; display: flex; flex-direction: row; justify-content: space-between; align-items: center; justify-content: center;">
+                    <div class="text-center">
+                        <div class="relative mb-6">
+                            <img alt="User's profile picture"
+                                class="w-24 h-24 rounded-full mx-auto border-4 border-red-500" height="100"
+                                src="{% if other_user %}static/images/user_profiles/{{ other_user.id }}.jpg{% else %}/static/images/user_profiles/3.jpg{% endif %}"
+                                width="100" />
+                        </div>
+                        <div class="mb-4" style="margin-top:-10px;">
+                            <h2 class="text-lg font-bold text-gray-800">
+                                {% if other_user %}
+                                {{ other_user.username }}
+                                {% else %}
+                                John Doe
+                                {% endif %}
+                            </h2>
+                            <p class="text-red-600 text-lg font-bold" style="margin-bottom: 10px;">
+                                Balance: {% if other_user %}{{ other_user.points }}{% else %}100{% endif %} tokens
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-top: 20px;">
+                    <h2 class="font-bold text-lg mb-2">Challenger's Proof</h2>
+                    {% if other_user_proof %}
+                    <img src="{{ other_user_proof }}" alt="Opponent's Proof">
+                    {% else %}
+                    <p>No proof uploaded yet by the challenger.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+<script>
+    document.querySelector('.upload-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        const formData = new FormData(this);
+        fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);
+                if (data.file_path) {
+                    // Display the uploaded proof immediately after upload
+                    const img = document.createElement('img');
+                    img.src = data.file_path; // Make sure this is a reachable path
+                    img.alt = "Your Proof";
+                    this.parentNode.replaceChild(img, this); // Replace the form with the image
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
+{% endblock %}
